@@ -56,26 +56,26 @@ fit_linear_model_rcpp(X, Y)
 ```
 Arguments:
 
--X: A numeric matrix of predictor variables.
+ -X: A numeric matrix of predictor variables.
 
--Y: A numeric vector of response variables.
+ -Y: A numeric vector of response variables.
 
 
 Returns: A list containing:
 
--coefficients: The regression coefficients.
+ -coefficients: The regression coefficients.
 
--fitted: The predicted values.
+ -fitted: The predicted values.
 
--residuals: The residuals of the model.
+ -residuals: The residuals of the model.
 
--mse: The mean squared error.
+ -mse: The mean squared error.
 
--degrees_freedom: Degrees of freedom for the residuals.
+ -degrees_freedom: Degrees of freedom for the residuals.
 
--var_cov_matrix: Variance-covariance matrix of the coefficients.
+ -var_cov_matrix: Variance-covariance matrix of the coefficients.
 
--standard_errors: Standard errors of the coefficients.
+ -standard_errors: Standard errors of the coefficients.
 
 ### calculate_evaluation_metrics()
 
@@ -88,22 +88,22 @@ calculate_r_squared(Y, fitted)
 
 Arguments:
 
--Y: A numeric vector of observed response values.
+ -Y: A numeric vector of observed response values.
 
--fitted: A numeric vector of fitted response values.
+ -fitted: A numeric vector of fitted response values.
 
--X: A numeric matrix of predictor variables.
+ -X: A numeric matrix of predictor variables.
 
 
 Returns: A list containing:
 
--R_squared: The coefficient of determination (R^2).
+ -R_squared: The coefficient of determination (R^2).
 
--Adj_R_squared: The adjusted R^2.
+ -Adj_R_squared: The adjusted R^2.
 
--F_statistic: The F-statistic for the model.
+ -F_statistic: The F-statistic for the model.
 
--p_value_F: The p-value for the F-statistic.
+ -p_value_F: The p-value for the F-statistic.
 
 ### plot_diagnostics()
 Description: Generates diagnostic plots for assessing model fit.
@@ -114,9 +114,9 @@ plot_diagnostics(residuals, fitted)
 ```
 Arguments:
 
--residuals: A numeric vector of residuals from the model.
+ -residuals: A numeric vector of residuals from the model.
 
--fitted: A numeric vector of fitted values from the model.
+ -fitted: A numeric vector of fitted values from the model.
 
 
 Details: Produces the following diagnostic plots:
