@@ -36,4 +36,16 @@ You can install the package directly from GitHub using the `devtools` package:
 if (!requireNamespace("devtools", quietly = TRUE)) {
   install.packages("devtools")
 }
-devtools::install_github("yourusername/BIOSTAT625.HW3")
+devtools::install_github("jzshen02/BIOSTAT625.HW3")
+
+Functions and Usage
+fit_linear_model_rcpp()
+Description: Fits a linear regression model to a dataset using RcppArmadillo.
+
+Usage:
+fit_linear_model_rcpp(X, Y)
+Arguments:
+
+X: A numeric matrix of predictor variables.
+Y: A numeric vector of response variables.
+Returns: A vector of regression coefficients.
