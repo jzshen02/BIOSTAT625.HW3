@@ -7,9 +7,12 @@
    - [From GitHub](#from-github)
 3. [Functions and Usage](#functions-and-usage)
    - [fit_linear_model_rcpp()](#fit_linear_model_rcpp)
-   - [calculate_r_squared()](#calculate_r_squared)
+   - [calculate_evaluation_metrics()](#calculate_evaluation_metrics)
+   - [plot_diagnostics()](#plot_diagnostics)
 4. [Example](#example)
-5. [Testing](#testing)
+5. [Output Details](#output-details)
+6. [Testing](#testing)
+
 
 ---
 
@@ -19,8 +22,11 @@
 
 The package includes the following key functions:
 
-1. **`fit_linear_model_rcpp()`**: Fits a linear regression model using matrix operations in C++.  
-2. **`calculate_r_squared()`**: Computes the coefficient of determination (\(R^2\)) to evaluate model performance.
+1. **Fitting the Model**: Calculates regression coefficients and fitted values.
+2. **Model Evaluation**: Outputs metrics including \( R^2 \), adjusted \( R^2 \), F-statistic, p-value for F-statistic, and residual variance.
+3. **Diagnostics**: Outputs residuals, degrees of freedom, variance-covariance matrix, and standard errors.
+4. **Visualization**: Generates diagnostic plots for better understanding of the model's fit.
+
 
 ---
 
@@ -54,9 +60,23 @@ X: A numeric matrix of predictor variables.
 
 Y: A numeric vector of response variables.
 
-Returns: A vector of regression coefficients.
+Returns: A list containing:
 
-### calculate_r_squared()
+coefficients: The regression coefficients.
+
+fitted: The predicted values.
+
+residuals: The residuals of the model.
+
+mse: The mean squared error.
+
+degrees_freedom: Degrees of freedom for the residuals.
+
+var_cov_matrix: Variance-covariance matrix of the coefficients.
+
+standard_errors: Standard errors of the coefficients.
+
+### calculate_evaluation_metrics()
 
 Description: Computes the R^2 value for a fitted linear regression model.
 
@@ -71,7 +91,42 @@ Y: A numeric vector of observed response values.
 
 fitted: A numeric vector of fitted response values.
 
-Returns: A numeric value representing the coefficient of determination (R^2).
+X: A numeric matrix of predictor variables.
+
+Returns: A list containing:
+
+R_squared: The coefficient of determination (R^2).
+
+Adj_R_squared: The adjusted R^2.
+
+F_statistic: The F-statistic for the model.
+
+p_value_F: The p-value for the F-statistic.
+
+### plot_diagnostics()
+Description: Generates diagnostic plots for assessing model fit.
+
+Usage:
+```r
+plot_diagnostics(residuals, fitted)
+```
+Arguments:
+
+residuals: A numeric vector of residuals from the model.
+
+fitted: A numeric vector of fitted values from the model.
+
+Details: Produces the following diagnostic plots:
+
+1. Residuals vs Fitted: To assess linearity and equal variance.
+
+2. Q-Q Plot: To check for normality of residuals.
+
+3. Scale-Location Plot: To evaluate homoscedasticity.
+
+4. Residuals vs Leverage: To detect influential observations.
+
+Returns: Displays plots in the active graphics device.
 
 ## Example
 Here is an example using the provided dataset (test.sas7bdat):
@@ -102,6 +157,43 @@ r_squared <- calculate_r_squared(Y, fitted_values)
 print(coefficients)  # Regression coefficients
 print(r_squared)     # R-squared value
 ```
+## Output Details
+1. Fit Results:
+
+coefficients
+
+fitted
+
+residuals
+
+mse
+
+degrees_freedom
+
+var_cov_matrix
+
+standard_errors
+
+2. Evaluation Metrics:
+
+R_squared
+
+Adj_R_squared
+
+F_statistic
+
+p_value_F
+
+3. Plots:
+
+Residuals vs Fitted
+
+Q-Q Plot
+
+Scale-Location Plot
+
+Residuals vs Leverage
+
 
 ## Testing
 The project includes a suite of tests using testthat. To run tests:
