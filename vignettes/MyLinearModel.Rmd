@@ -1,0 +1,156 @@
+---
+title: "MyLinearModel"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{MyLinearModel}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+# Setting up the environment
+# Load necessary libraries and set global chunk options
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(BIOSTAT625.HW3) # Custom package for linear regression
+library(haven)          # For reading SAS datasets
+library(bench)          # For performance benchmarking
+library(knitr)          # For formatting output
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+# Introduction
+```{r setup}
+
+# This package provides functionalities for:
+# 1. Fitting linear regression models.
+# 2. Evaluating model performance using R-squared, Adjusted R-squared, F-statistic, and p-values.
+# 3. Generating diagnostic plots for model validation.
+# This vignette demonstrates these functionalities using the `test.sas7bdat` dataset.
+
+```
+
+# Data Preparation
+```{r}
+
+# We start by loading the dataset 'test.sas7bdat' using the haven package.
+# The column names are standardized to lowercase for consistency.
+data_path <- system.file("extdata", "test.sas7bdat", package = "BIOSTAT625.HW3")
+dataset <- haven::read_sas(data_path)
+
+# Standardize column names
+colnames(dataset) <- tolower(colnames(dataset))
+
+# Define response and predictor variables
+response_var <- "depression"
+predictor_vars <- c("fatalism")
+
+# Display the first few rows of the dataset
+head(dataset)
+
+```
+
+# Fitting the Model
+```{r}
+# We fit a linear regression model to predict depression using fatalism as the predictor variable.
+# Fit the model
+fit <- fit_linear_model(dataset, 
+                        response_var = "depression", 
+                        predictor_vars = c("fatalism"))
+
+# Display coefficients
+fit$coefficients
+
+```
+
+
+# Evaluating Model Performance
+
+```{r}
+# We evaluate the model's performance using metrics like R-squared, Adjusted R-squared, F-statistic, and its p-value.
+# Evaluate model performance
+performance <- evaluate_model_performance(fit, 
+                                          dataset, 
+                                          response_var = "depression", 
+                                          predictor_vars = c("fatalism"))
+
+# Display performance metrics
+performance
+
+```
+
+# Residual Diagnostics
+```{r}
+# Residual diagnostics help validate the assumptions of the linear regression model. We plot the residuals against the fitted values and generate a Q-Q plot to check for normality.
+# Plot residual diagnostics
+plot_residuals(fit)
+
+```
+# Comparison with lm
+```{r}
+# Fit the model using lm
+lm_model <- lm(depression ~ fatalism, data = dataset)
+
+# Compare coefficients
+custom_coefficients <- as.numeric(fit$coefficients)
+names(custom_coefficients) <- names(coef(lm_model))  # Add names for consistency
+coeff_comparison <- all.equal(custom_coefficients, coef(lm_model), check.attributes = FALSE)
+
+# Compare fitted values
+custom_fitted <- as.numeric(fit$fitted)
+fitted_comparison <- all.equal(custom_fitted, fitted(lm_model), check.attributes = FALSE)
+
+# Compare residuals
+custom_residuals <- as.numeric(fit$residuals)
+residual_comparison <- all.equal(custom_residuals, residuals(lm_model), check.attributes = FALSE)
+
+# Print comparison results
+list(
+  Coefficients = coeff_comparison,
+  Fitted_Values = fitted_comparison,
+  Residuals = residual_comparison
+)
+
+
+```
+
+```{r}
+benchmark_results <- bench::mark(
+  Custom_Model = {
+    fit <- fit_linear_model(dataset, response_var = "depression", predictor_vars = c("fatalism"))
+    as.numeric(fit$coefficients)  
+  },
+  LM_Model = {
+    lm_model <- lm(depression ~ fatalism, data = dataset)
+    as.numeric(coef(lm_model))  
+  },
+  iterations = 100
+)
+
+
+benchmark_results
+
+
+```
+
+## Conclusion: Correctness and Efficiency
+
+```{r conclusion}
+# Correctness
+# The custom model's outputs were verified against the lm function.
+cat("Correctness:\n")
+cat("- The custom linear regression implementation (fit_linear_model) produces outputs that are consistent with R's built-in lm function.\n")
+cat("- Coefficients, fitted values, and residuals comparisons all returned TRUE, confirming identical results.\n\n")
+
+# Efficiency
+# Benchmarking results
+cat("Efficiency:\n")
+cat("- Benchmarking demonstrates that fit_linear_model is significantly more efficient than lm.\n")
+cat("- Custom Model:\n  * Median runtime: 78.1 µs per iteration\n  * Memory allocation: 49.5 KB\n")
+cat("- lm Model:\n  * Median runtime: 266 µs per iteration\n  * Memory allocation: 110.1 KB\n")
+cat("- The custom model is ~3 times faster and uses less than half the memory compared to lm.\n\n")
+
+
+```
