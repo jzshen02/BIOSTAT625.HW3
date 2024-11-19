@@ -61,6 +61,7 @@ Arguments:
  -Y: A numeric vector of response variables.
 
 
+
 Returns: A list containing:
 
  -coefficients: The regression coefficients.
