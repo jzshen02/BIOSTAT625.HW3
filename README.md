@@ -51,7 +51,26 @@ Usage:
 fit_linear_model_rcpp(X, Y)
 ```
 Arguments:
+
 X: A numeric matrix of predictor variables.
+
 Y: A numeric vector of response variables.
 
 Returns: A vector of regression coefficients.
+
+### calculate_r_squared()
+
+Description: Computes the R^2 value for a fitted linear regression model.
+
+Usage:
+```r
+calculate_r_squared(Y, fitted)
+```
+
+Arguments:
+
+Y: A numeric vector of observed response values.
+
+fitted: A numeric vector of fitted response values.
+
+Returns: A numeric value representing the coefficient of determination (R^2).
