@@ -54,7 +54,7 @@ Usage:
 ```r
 fit_linear_model_rcpp(X, Y)
 ```
-Arguments:
+#### Arguments:
 
  -X: A numeric matrix of predictor variables.
 
@@ -62,7 +62,7 @@ Arguments:
 
 
 
-Returns: A list containing:
+#### Returns: A list containing:
 
  -coefficients: The regression coefficients.
 
@@ -87,7 +87,7 @@ Usage:
 calculate_r_squared(Y, fitted)
 ```
 
-Arguments:
+#### Arguments:
 
  -Y: A numeric vector of observed response values.
 
@@ -96,7 +96,7 @@ Arguments:
  -X: A numeric matrix of predictor variables.
 
 
-Returns: A list containing:
+#### Returns: A list containing:
 
  -R_squared: The coefficient of determination (R^2).
 
@@ -113,14 +113,14 @@ Usage:
 ```r
 plot_diagnostics(residuals, fitted)
 ```
-Arguments:
+#### Arguments:
 
  -residuals: A numeric vector of residuals from the model.
 
  -fitted: A numeric vector of fitted values from the model.
 
 
-Details: Produces the following diagnostic plots:
+#### Details: Produces the following diagnostic plots:
 
 1. Residuals vs Fitted: To assess linearity and equal variance.
 
@@ -131,7 +131,7 @@ Details: Produces the following diagnostic plots:
 4. Residuals vs Leverage: To detect influential observations.
 
 
-Returns: Displays plots in the active graphics device.
+#### Returns: Displays plots in the active graphics device.
 
 ## Example
 Here is an example using the provided dataset (test.sas7bdat):
@@ -163,7 +163,7 @@ print(coefficients)  # Regression coefficients
 print(r_squared)     # R-squared value
 ```
 ## Output Details
-1. Fit Results:
+#### 1. Fit Results:
 
  -coefficients
 
@@ -179,7 +179,7 @@ print(r_squared)     # R-squared value
 
  -standard_errors
 
-2. Evaluation Metrics:
+##### 2. Evaluation Metrics:
 
  -R_squared
 
@@ -189,7 +189,7 @@ print(r_squared)     # R-squared value
 
  -p_value_F
 
-3. Plots:
+#### 3. Plots:
 
  -Residuals vs Fitted
 
