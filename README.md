@@ -60,6 +60,7 @@ X: A numeric matrix of predictor variables.
 
 Y: A numeric vector of response variables.
 
+
 Returns: A list containing:
 
 coefficients: The regression coefficients.
@@ -93,6 +94,7 @@ fitted: A numeric vector of fitted response values.
 
 X: A numeric matrix of predictor variables.
 
+
 Returns: A list containing:
 
 R_squared: The coefficient of determination (R^2).
@@ -116,6 +118,7 @@ residuals: A numeric vector of residuals from the model.
 
 fitted: A numeric vector of fitted values from the model.
 
+
 Details: Produces the following diagnostic plots:
 
 1. Residuals vs Fitted: To assess linearity and equal variance.
@@ -125,6 +128,7 @@ Details: Produces the following diagnostic plots:
 3. Scale-Location Plot: To evaluate homoscedasticity.
 
 4. Residuals vs Leverage: To detect influential observations.
+
 
 Returns: Displays plots in the active graphics device.
 
@@ -160,39 +164,39 @@ print(r_squared)     # R-squared value
 ## Output Details
 1. Fit Results:
 
-coefficients
+ -coefficients
 
-fitted
+ -fitted
 
-residuals
+ -residuals
 
-mse
+ -mse
 
-degrees_freedom
+ -degrees_freedom
 
-var_cov_matrix
+ -var_cov_matrix
 
-standard_errors
+ -standard_errors
 
 2. Evaluation Metrics:
 
-R_squared
+ -R_squared
 
-Adj_R_squared
+ -Adj_R_squared
 
-F_statistic
+ -F_statistic
 
-p_value_F
+ -p_value_F
 
 3. Plots:
 
-Residuals vs Fitted
+ -Residuals vs Fitted
 
-Q-Q Plot
+ -Q-Q Plot
 
-Scale-Location Plot
+ -Scale-Location Plot
 
-Residuals vs Leverage
+ -Residuals vs Leverage
 
 
 ## Testing
