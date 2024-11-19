@@ -10,8 +10,6 @@
    - [calculate_r_squared()](#calculate_r_squared)
 4. [Example](#example)
 5. [Testing](#testing)
-6. [Contributing](#contributing)
-7. [Acknowledgments](#acknowledgments)
 
 ---
 
@@ -74,3 +72,54 @@ Y: A numeric vector of observed response values.
 fitted: A numeric vector of fitted response values.
 
 Returns: A numeric value representing the coefficient of determination (R^2).
+
+## Example
+Here is an example using the provided dataset (test.sas7bdat):
+```r
+# Load the package
+library(BIOSTAT625.HW3)
+
+# Load your dataset
+library(haven)
+data_path <- system.file("extdata", "test.sas7bdat", package = "BIOSTAT625.HW3")
+data <- haven::read_sas(data_path)
+
+
+# Prepare predictors and response
+X <- as.matrix(data[, -ncol(data)])  # All columns except the last as predictors
+Y <- as.numeric(data[, ncol(data)]) # Last column as the response variable
+
+# Fit the linear regression model
+coefficients <- fit_linear_model_rcpp(X, Y)
+
+# Predict the fitted values
+fitted_values <- X %*% coefficients
+
+# Evaluate model performance
+r_squared <- calculate_r_squared(Y, fitted_values)
+
+# Print results
+print(coefficients)  # Regression coefficients
+print(r_squared)     # R-squared value
+```
+
+## Testing
+The project includes a suite of tests using testthat. To run tests:
+```r
+devtools::test()
+```
+Additionally, you can compare the performance of the Rcpp-based implementation with base R:
+```r
+library(bench)
+
+# Generate a larger dataset from your existing data
+data_large <- data[sample(1:nrow(data), 1e4, replace = TRUE), ]
+X_large <- as.matrix(data_large[, -ncol(data_large)])
+Y_large <- as.numeric(data_large[, ncol(data_large)])
+
+bench::mark(
+  Rcpp = fit_linear_model_rcpp(X_large, Y_large),
+  BaseR = lm(Y_large ~ X_large - 1)
+)
+```
+
