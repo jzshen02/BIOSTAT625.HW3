@@ -140,17 +140,17 @@ benchmark_results
 ```{r conclusion}
 # Correctness
 # The custom model's outputs were verified against the lm function.
-cat("Correctness:\n")
-cat("- The custom linear regression implementation (fit_linear_model) produces outputs that are consistent with R's built-in lm function.\n")
-cat("- Coefficients, fitted values, and residuals comparisons all returned TRUE, confirming identical results.\n\n")
+# Correctness:
+#- The custom linear regression implementation (fit_linear_model) produces outputs that are consistent with R's built-in lm function.
+#- Coefficients, fitted values, and residuals comparisons all returned TRUE, confirming identical results.
 
 # Efficiency
 # Benchmarking results
-cat("Efficiency:\n")
-cat("- Benchmarking demonstrates that fit_linear_model is significantly more efficient than lm.\n")
-cat("- Custom Model:\n  * Median runtime: 78.1 µs per iteration\n  * Memory allocation: 49.5 KB\n")
-cat("- lm Model:\n  * Median runtime: 266 µs per iteration\n  * Memory allocation: 110.1 KB\n")
-cat("- The custom model is ~3 times faster and uses less than half the memory compared to lm.\n\n")
+# Efficiency:
+#- Benchmarking demonstrates that fit_linear_model is significantly more efficient than lm.
+#- Custom Model:  * Median runtime: 78.1 µs per iteration  * Memory allocation: 49.5 KB
+#- lm Model:  * Median runtime: 266 µs per iteration  * Memory allocation: 110.1 KB
+#- The custom model is ~3 times faster and uses less than half the memory compared to lm.
 
 
 ```
